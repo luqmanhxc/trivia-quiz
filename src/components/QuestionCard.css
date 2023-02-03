@@ -1,0 +1,9 @@
+.answer {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.answer:hover {
+    background-color: gray;
+}
