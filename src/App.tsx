@@ -4,10 +4,10 @@ import { fetchQuiz } from './features/quiz/QuizSlice';
 import './App.css';
 import QuestionCard from './components/QuestionCard';
 import he from 'he';
-import shuffleArray from './utils';
 
 function App() {
     const { loading, quiz, error } = useAppSelector((state) => state.quiz);
+    const score = useAppSelector((state) => state.score.score);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -16,6 +16,7 @@ function App() {
 
     return (
         <div>
+            {score.filter((obj) => obj.correct === true).length}
             {loading && <div>Loading...</div>}
             {!loading &&
                 quiz.map((question, index) => (
@@ -23,10 +24,7 @@ function App() {
                         key={question.question}
                         questionId={index + 1}
                         question={he.decode(question.question)}
-                        answers={shuffleArray([
-                            ...question.incorrect_answers,
-                            question.correct_answer,
-                        ])}
+                        incorrectAnswers={question.incorrect_answers}
                         correctAnswer={question.correct_answer}
                     />
                 ))}

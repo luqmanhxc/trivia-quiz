@@ -1,40 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './QuestionCard.css';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { updateScore } from '../features/score/scoreSlice';
+import shuffleArray from '../utils';
 
 type Props = {
     questionId: number;
     question: string;
-    answers: string[];
+    incorrectAnswers: string[];
     correctAnswer: string;
 };
 
 const QuestionCard = ({
     questionId,
     question,
-    answers,
+    incorrectAnswers,
     correctAnswer,
 }: Props) => {
-    const score = useAppSelector((state) => state.score.score);
+    const [answers, setAnswers] = useState<string[]>([]);
     const dispatch = useAppDispatch();
 
-    // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault();
-    //     console.log(e.currentTarget.value);
-    //     const answerObject: AnswerObject = {
-    //         questionId: questionId,
-    //         userAnswer: e.currentTarget.value,
-    //         correctAnswer: correctAnswer,
-    //         correct: e.currentTarget.value === correctAnswer,
-    //     };
-    // };
+    useEffect(() => {
+        setAnswers(shuffleArray([...incorrectAnswers, correctAnswer]));
+    }, []);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (e.currentTarget.value === correctAnswer) {
-            dispatch(updateScore());
-        }
+        const correct = e.currentTarget.value === correctAnswer;
+        const answerObject = {
+            question: question,
+            correctAnswer: correctAnswer,
+            userAnswer: e.currentTarget.value,
+            correct: correct,
+        };
+        dispatch(updateScore(answerObject));
     };
 
     return (
@@ -49,7 +48,6 @@ const QuestionCard = ({
                     >
                         {answer}
                     </button>
-                    <h2>{score}</h2>
                 </div>
             ))}
         </div>
@@ -57,3 +55,14 @@ const QuestionCard = ({
 };
 
 export default QuestionCard;
+
+// const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+//     e.preventDefault();
+//     console.log(e.currentTarget.value);
+//     const answerObject: AnswerObject = {
+//         questionId: questionId,
+//         userAnswer: e.currentTarget.value,
+//         correctAnswer: correctAnswer,
+//         correct: e.currentTarget.value === correctAnswer,
+//     };
+// };

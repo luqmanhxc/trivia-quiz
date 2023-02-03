@@ -1,19 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+type Answers = {
+    question: string;
+    correctAnswer: string;
+    userAnswer: string;
+    correct: boolean;
+};
+
 type InitialState = {
-    score: number;
+    score: Answers[];
 };
 
 const initialState: InitialState = {
-    score: 0,
+    score: [],
 };
 
 const scoreSlice = createSlice({
     name: 'score',
     initialState,
     reducers: {
-        updateScore: (state) => {
-            state.score += 1;
+        updateScore: (state, action: PayloadAction<Answers>) => {
+            state.score.push(action.payload);
         },
     },
 });
