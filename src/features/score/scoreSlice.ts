@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Answers = {
-    question: string;
-    correctAnswer: string;
+    question?: string;
+    correctAnswer?: string;
     userAnswer: string;
     correct: boolean;
 };
@@ -19,11 +19,23 @@ const scoreSlice = createSlice({
     name: 'score',
     initialState,
     reducers: {
-        updateScore: (state, action: PayloadAction<Answers>) => {
+        addScore: (state, action: PayloadAction<Answers>) => {
             state.score.push(action.payload);
+        },
+        updateScore: (state, action: PayloadAction<Answers>) => {
+            state.score = state.score.map((obj) => {
+                if (obj.question === action.payload.question) {
+                    return {
+                        ...obj,
+                        userAnswer: action.payload.userAnswer,
+                        correct: action.payload.correct,
+                    };
+                }
+                return obj;
+            });
         },
     },
 });
 
 export default scoreSlice.reducer;
-export const { updateScore } = scoreSlice.actions;
+export const { addScore, updateScore } = scoreSlice.actions;

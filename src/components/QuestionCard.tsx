@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './QuestionCard.css';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { updateScore } from '../features/score/scoreSlice';
+import { addScore, updateScore } from '../features/score/scoreSlice';
 import shuffleArray from '../utils';
 
 type Props = {
@@ -18,6 +18,7 @@ const QuestionCard = ({
     correctAnswer,
 }: Props) => {
     const [answers, setAnswers] = useState<string[]>([]);
+    const score = useAppSelector((state) => state.score.score);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -33,7 +34,12 @@ const QuestionCard = ({
             userAnswer: e.currentTarget.value,
             correct: correct,
         };
-        dispatch(updateScore(answerObject));
+        if (score.some((el) => el.question === question)) {
+            dispatch(updateScore(answerObject));
+        } else {
+            dispatch(addScore(answerObject));
+        }
+        console.log(score);
     };
 
     return (
@@ -55,14 +61,3 @@ const QuestionCard = ({
 };
 
 export default QuestionCard;
-
-// const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-//     e.preventDefault();
-//     console.log(e.currentTarget.value);
-//     const answerObject: AnswerObject = {
-//         questionId: questionId,
-//         userAnswer: e.currentTarget.value,
-//         correctAnswer: correctAnswer,
-//         correct: e.currentTarget.value === correctAnswer,
-//     };
-// };
