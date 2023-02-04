@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './QuestionCard.css';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { addScore, updateScore } from '../features/score/scoreSlice';
+import { addScore, updateScore } from '../features/score/ScoreSlice';
 import shuffleArray from '../utils';
 
 type Props = {
@@ -39,23 +38,18 @@ const QuestionCard = ({
         } else {
             dispatch(addScore(answerObject));
         }
-        console.log(score);
     };
 
     return (
         <div>
             <h2>{question}</h2>
-            {answers.map((answer) => (
-                <div key={answer}>
-                    <button
-                        className="answer"
-                        value={answer}
-                        onClick={handleClick}
-                    >
+            <div>
+                {answers.map((answer) => (
+                    <button key={answer} value={answer} onClick={handleClick}>
                         {answer}
                     </button>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };
