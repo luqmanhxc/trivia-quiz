@@ -57,6 +57,7 @@ const Quiz = () => {
                 <div>
                     {score.map((obj) => (
                         <button
+                            key={obj.questionId}
                             onClick={() =>
                                 dispatch(updateNumber(obj?.questionId))
                             }
