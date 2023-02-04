@@ -28,6 +28,7 @@ const QuestionCard = ({
         e.preventDefault();
         const correct = e.currentTarget.value === correctAnswer;
         const answerObject = {
+            questionId: questionId,
             question: question,
             correctAnswer: correctAnswer,
             userAnswer: e.currentTarget.value,

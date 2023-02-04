@@ -20,6 +20,9 @@ const statusSlice = createSlice({
         resetNumber: (state) => {
             state.number = 0;
         },
+        updateNumber: (state, action: PayloadAction<number>) => {
+            state.number = action.payload;
+        },
         setGameOver: (state, action: PayloadAction<boolean>) => {
             state.gameOver = action.payload;
         },
@@ -27,4 +30,5 @@ const statusSlice = createSlice({
 });
 
 export default statusSlice.reducer;
-export const { incNumber, resetNumber, setGameOver } = statusSlice.actions;
+export const { incNumber, resetNumber, updateNumber, setGameOver } =
+    statusSlice.actions;

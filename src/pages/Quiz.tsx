@@ -1,6 +1,10 @@
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { fetchQuiz, resetQuiz } from '../features/quiz/QuizSlice';
-import { incNumber, setGameOver } from '../features/status/StatusSlice';
+import {
+    incNumber,
+    updateNumber,
+    setGameOver,
+} from '../features/status/StatusSlice';
 import { Link } from 'react-router-dom';
 import QuestionCard from '../components/QuestionCard';
 import he from 'he';
@@ -48,6 +52,20 @@ const Quiz = () => {
                     </Link>
                 ) : null}
             </div>
+
+            {score && (
+                <div>
+                    {score.map((obj) => (
+                        <button
+                            onClick={() =>
+                                dispatch(updateNumber(obj?.questionId - 1))
+                            }
+                        >
+                            {obj.questionId}
+                        </button>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
