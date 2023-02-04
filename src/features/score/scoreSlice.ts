@@ -25,7 +25,7 @@ const scoreSlice = createSlice({
         },
         updateScore: (state, action: PayloadAction<Answers>) => {
             state.score = state.score.map((obj) => {
-                if (obj.question === action.payload.question) {
+                if (obj.questionId === action.payload.questionId) {
                     return {
                         ...obj,
                         userAnswer: action.payload.userAnswer,

@@ -34,7 +34,7 @@ const QuestionCard = ({
             userAnswer: e.currentTarget.value,
             correct: correct,
         };
-        if (score.some((el) => el.question === question)) {
+        if (score.some((el) => el.questionId === questionId)) {
             dispatch(updateScore(answerObject));
         } else {
             dispatch(addScore(answerObject));

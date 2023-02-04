@@ -31,7 +31,7 @@ const Quiz = () => {
                 {!loading && !gameOver && quiz.length ? (
                     <QuestionCard
                         key={quiz[number].question}
-                        questionId={number + 1}
+                        questionId={number}
                         question={he.decode(quiz[number].question)}
                         incorrectAnswers={quiz[number].incorrect_answers}
                         correctAnswer={quiz[number].correct_answer}
@@ -58,10 +58,10 @@ const Quiz = () => {
                     {score.map((obj) => (
                         <button
                             onClick={() =>
-                                dispatch(updateNumber(obj?.questionId - 1))
+                                dispatch(updateNumber(obj?.questionId))
                             }
                         >
-                            {obj.questionId}
+                            {obj.questionId + 1}
                         </button>
                     ))}
                 </div>
