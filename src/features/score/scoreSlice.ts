@@ -34,8 +34,11 @@ const scoreSlice = createSlice({
                 return obj;
             });
         },
+        resetScore: (state) => {
+            state.score = [];
+        },
     },
 });
 
 export default scoreSlice.reducer;
-export const { addScore, updateScore } = scoreSlice.actions;
+export const { addScore, updateScore, resetScore } = scoreSlice.actions;
