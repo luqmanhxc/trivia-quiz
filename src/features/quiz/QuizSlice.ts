@@ -10,13 +10,13 @@ type QuestionType = {
     incorrect_answers: string[];
 };
 
-type InitialStateType = {
+type InitialState = {
     loading: boolean;
     quiz: QuestionType[];
     error: string;
 };
 
-const initialState: InitialStateType = {
+const initialState: InitialState = {
     loading: false,
     quiz: [],
     error: '',
@@ -24,17 +24,22 @@ const initialState: InitialStateType = {
 
 export const fetchQuiz = createAsyncThunk('quiz/fetchQuiz', () => {
     return axios
-        .get('https://opentdb.com/api.php?amount=5')
+        .get('https://opentdb.com/api.php?amount=5&type=multiple')
         .then((response) => response.data.results);
 });
 
 const quizSlice = createSlice({
     name: 'quiz',
     initialState,
-    reducers: {},
+    reducers: {
+        resetQuiz: (state) => {
+            state.quiz = [];
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchQuiz.pending, (state) => {
             state.loading = true;
+            state.quiz = [];
         });
         builder.addCase(
             fetchQuiz.fulfilled,
@@ -53,3 +58,4 @@ const quizSlice = createSlice({
 });
 
 export default quizSlice.reducer;
+export const { resetQuiz } = quizSlice.actions;
