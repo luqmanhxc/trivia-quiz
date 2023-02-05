@@ -16,6 +16,7 @@ const QuestionCard = ({
     incorrectAnswers,
     correctAnswer,
 }: Props) => {
+    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [answers, setAnswers] = useState<string[]>([]);
     const score = useAppSelector((state) => state.score.score);
     const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ const QuestionCard = ({
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        setSelectedAnswer(e.currentTarget.value);
         const correct = e.currentTarget.value === correctAnswer;
         const answerObject = {
             questionId: questionId,
@@ -42,11 +44,18 @@ const QuestionCard = ({
     };
 
     return (
-        <div>
-            <h2>{question}</h2>
-            <div>
+        <div className="question u-margin-bottom-small">
+            <h2 className="question__text u-margin-bottom-small">{question}</h2>
+            <div className="question__answers u-margin-bottom-small">
                 {answers.map((answer) => (
-                    <button key={answer} value={answer} onClick={handleClick}>
+                    <button
+                        key={answer}
+                        value={answer}
+                        onClick={handleClick}
+                        className={`btn btn--answer ${
+                            answer === selectedAnswer ? 'btn--active' : ''
+                        }`}
+                    >
                         {answer}
                     </button>
                 ))}
