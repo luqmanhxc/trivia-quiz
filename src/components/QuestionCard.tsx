@@ -52,9 +52,13 @@ const QuestionCard = ({
                         key={answer}
                         value={answer}
                         onClick={handleClick}
-                        className={`btn btn--answer ${
-                            answer === selectedAnswer ? 'btn--active' : ''
-                        }`}
+                        className={`btn btn--answer 
+                        ${
+                            score[questionId]?.userAnswer === answer
+                                ? 'btn--active'
+                                : ''
+                        }
+                        ${answer === selectedAnswer ? 'btn--active' : ''}`}
                     >
                         {answer}
                     </button>
