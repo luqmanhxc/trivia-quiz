@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Answers = {
-    questionId?: number;
+    questionId?: any;
     question?: string;
     correctAnswer?: string;
     userAnswer: string;
