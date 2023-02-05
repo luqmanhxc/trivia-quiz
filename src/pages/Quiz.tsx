@@ -43,7 +43,10 @@ const Quiz = () => {
             </div>
 
             <div className="turn-page">
-                {!loading && score.length && score.length !== 5 ? (
+                {!loading &&
+                score.length &&
+                score.length !== 5 &&
+                score[number] ? (
                     <button
                         className="btn btn--next u-margin-bottom-small"
                         onClick={() => dispatch(incNumber())}
