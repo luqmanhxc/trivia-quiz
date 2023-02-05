@@ -1,9 +1,11 @@
-import React from 'react';
+import PacmanLoader from 'react-spinners/PacmanLoader';
 
-type Props = {};
-
-const Loader = (props: Props) => {
-    return <div>Loading...</div>;
+const Loader = () => {
+    return (
+        <div className="container container-start">
+            <PacmanLoader size={50} color="#fff" />
+        </div>
+    );
 };
 
 export default Loader;
