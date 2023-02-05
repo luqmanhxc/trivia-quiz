@@ -1,0 +1,17 @@
+.question {
+    background-color: $color-white;
+    padding: 2em 1.5em;
+    border-radius: 5px;
+    box-shadow: 2px 5px 4px rgba($color-dark-1, 0.5);
+    max-width: 500px;
+    transition: all 0.3s;
+
+    &__text {
+        font-family: $font-primary;
+    }
+
+    &__answers {
+        display: flex;
+        flex-direction: column;
+    }
+}

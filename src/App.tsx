@@ -1,17 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
-import LoginButton from './components/LoginButton';
-import LogoutButton from './components/LogoutButton';
 import Home from './pages/Home';
 import Quiz from './pages/Quiz';
 import Results from './pages/Results';
-import { useAuth0 } from '@auth0/auth0-react';
 import AuthenticationGuard from './components/AuthenticationGuard';
 
 const App = () => {
-    const { isAuthenticated } = useAuth0();
     return (
-        <>
-            {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+        <div>
+            <div>
+                <h1 className="header__logo-text">Trivia Time!</h1>
+            </div>
 
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -21,7 +19,7 @@ const App = () => {
                 />
                 <Route path="/results" element={<Results />} />
             </Routes>
-        </>
+        </div>
     );
 };
 

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import QuestionCard from '../components/QuestionCard';
 import he from 'he';
 import { useEffect } from 'react';
+import Loader from '../components/Loader';
 
 const Quiz = () => {
     const { number, gameOver } = useAppSelector((state) => state.status);
@@ -26,7 +27,7 @@ const Quiz = () => {
     }, []);
 
     return (
-        <div>
+        <div className="container container-start">
             <div>
                 {!loading && !gameOver && quiz.length ? (
                     <QuestionCard
@@ -37,26 +38,35 @@ const Quiz = () => {
                         correctAnswer={quiz[number].correct_answer}
                     />
                 ) : (
-                    <p>Loading...</p>
+                    <Loader />
                 )}
             </div>
 
-            <div>
+            <div className="turn-page">
                 {!loading && score.length && score.length !== 5 ? (
-                    <button onClick={() => dispatch(incNumber())}>
+                    <button
+                        className="btn btn--next u-margin-bottom-small"
+                        onClick={() => dispatch(incNumber())}
+                    >
                         Next Question
                     </button>
                 ) : !loading && score.length === 5 ? (
                     <Link to="/results">
-                        <button onClick={handleSubmit}>Submit</button>
+                        <button
+                            className="btn btn--submit u-margin-bottom-small"
+                            onClick={handleSubmit}
+                        >
+                            Submit
+                        </button>
                     </Link>
                 ) : null}
             </div>
 
             {score && (
-                <div>
+                <div className="pagination">
                     {score.map((obj) => (
                         <button
+                            className="btn btn--page"
                             key={obj.questionId}
                             onClick={() =>
                                 dispatch(updateNumber(obj?.questionId))
