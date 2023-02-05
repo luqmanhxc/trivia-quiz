@@ -8,7 +8,9 @@ const App = () => {
     return (
         <div>
             <div>
-                <h1 className="header__logo-text">Trivia Time!</h1>
+                <h1 className="header__logo-text u-margin-bottom-small">
+                    Trivia Time!
+                </h1>
             </div>
 
             <Routes>
